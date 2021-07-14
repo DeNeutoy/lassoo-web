@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configuration-options" class="md-skip">
+        <a href="#enabling-full-text-search" class="md-skip">
           Skip to content
         </a>
       
@@ -226,36 +226,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-other-encoders" class="md-nav__link">
-    Using other encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#enabling-full-text-search" class="md-nav__link">
     Enabling Full Text Search
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#umap-parameters" class="md-nav__link">
     UMAP Parameters
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -277,21 +257,6 @@
     <li class="md-nav__item">
       <a href="../python/" class="md-nav__link">
         Python API
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cli/" class="md-nav__link">
-        CLI
       </a>
     </li>
   
@@ -320,36 +285,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-other-encoders" class="md-nav__link">
-    Using other encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#enabling-full-text-search" class="md-nav__link">
     Enabling Full Text Search
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#umap-parameters" class="md-nav__link">
     UMAP Parameters
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -368,25 +313,11 @@
                 
                   <h1>Configuration</h1>
                 
-                <h2 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">#</a></h2>
-<h3 id="using-other-encoders">Using other encoders<a class="headerlink" href="#using-other-encoders" title="Permanent link">#</a></h3>
-<p>By default, <code>lassoo embed</code> uses Scikit Learn's TF-IDF Vectorizer to encode text into sparse vectors.
-This is very fast and often provides a very useful view of your data, making it very easy to identify
-near duplicates and text with superficial similarities. </p>
-<p>Lassoo also supports using models from the <a href="https://www.sbert.net/"><code>sentence-transformers</code></a> library. Sentence
-Transformers provides a straightforward interface to large neural network models for encoding text into vector
-representations. You can use any sentence transformer model to encode your data by passing the name of model
-as the <code>encoder</code> argument to <code>lassoo embed</code>.</p>
-<p>A good default if you want to use a transformer model for embedding is <strong>paraphrase-distilroberta-base-v1</strong>. It is trained
-on millions of semantic textual similarity examples and is an effective embedding method for many "general" applications.</p>
-<p>You can see the available pretrained sentence encoder models <a href="https://www.sbert.net/docs/pretrained_models.html">here</a>.
-<code>sentence-transformers</code> has transformer based models for over 100 languages and many different use cases. </p>
-<h3 id="enabling-full-text-search">Enabling Full Text Search<a class="headerlink" href="#enabling-full-text-search" title="Permanent link">#</a></h3>
-<p>Lassoo also allows full text search over your data as a method for selecting data in the interface. This can be useful
-if you know certain keywords are relevant for your labels. Combining this with lassoo's recommendation feature can be very powerful. For example, you might search for "TV", which will return all examples containing the phrase. However, because the recommendation uses vector similarity to suggest examples, you can find related examples which don't contain the exact phrase "TV", but do contain relevant terms like "netflix", "movie" etc.</p>
+                <h3 id="enabling-full-text-search">Enabling Full Text Search<a class="headerlink" href="#enabling-full-text-search" title="Permanent link">#</a></h3>
+<p>Lassoo also allows full text search over your data as a method for selecting data in the interface via the <code>search_func</code> argument. By default, this is exact string match over all columns with a string type. This can be useful if you know certain keywords are relevant for your labels. Combining this with lassoo's recommendation feature can be very powerful. For example, you might search for "TV", which will return all examples containing the phrase. However, because the recommendation uses vector similarity to suggest examples, you can find related examples which don't contain the exact phrase "TV", but do contain relevant terms like "netflix", "movie" etc.</p>
 <h3 id="umap-parameters">UMAP Parameters<a class="headerlink" href="#umap-parameters" title="Permanent link">#</a></h3>
 <p>UMAP is a very effective algorithm for unsupervised dimensionality reduction. However, the clustering you achieve
-from it can vary in how tightly it clusters sub-regions of the space, and how much it preserves global vs local structure. Luckily, UMAP is very fast, so you can try out some different values of the <code>--n_neighbors</code> and <code>--min_dist</code> parameters when using the <code>lassoo embed</code> command (or just pass the same parameter names to your <code>umap.UMAP</code> model, if you are creating it separately) to see which generate the most useful clustering for your data analysis/annotation.</p>
+from it can vary in how tightly it clusters sub-regions of the space, and how much it preserves global vs local structure. Luckily, UMAP is very fast, so you can try out some different values of the <code>n_neighbors</code> and <code>min_dist</code> parameters to see which generate the most useful clustering for your data analysis/annotation. Typically, for annotation/exploration, setting min_dist=0.0 works well. </p>
 <p><a href="https://pair-code.github.io/understanding-umap/">This blog post</a> by Google PAIR (People and AI Research) is very useful for quickly understanding the meaning of the two most important UMAP parameters.</p>
                 
               

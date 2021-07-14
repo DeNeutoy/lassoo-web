@@ -207,26 +207,6 @@
     Quickstart
   </a>
   
-    <nav class="md-nav" aria-label="Quickstart">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#command-line" class="md-nav__link">
-    Command line
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
-    Python
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -282,21 +262,6 @@
   
 
     
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="cli/" class="md-nav__link">
-        CLI
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -330,26 +295,6 @@
   <a href="#quickstart" class="md-nav__link">
     Quickstart
   </a>
-  
-    <nav class="md-nav" aria-label="Quickstart">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#command-line" class="md-nav__link">
-    Command line
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
-    Python
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -404,20 +349,19 @@ environment you want to use, you can skip to the 'installing via pip' section.
 </details>
 
 <h3 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">#</a></h3>
-<p>You can use <code>lassoo</code> from the command line or inside Python. The quickest way to get started is to run:</p>
-<h4 id="command-line">Command line<a class="headerlink" href="#command-line" title="Permanent link">#</a></h4>
-<div class="codehilite"><pre><span></span><code>lassoo run &lt;path/to/data.csv&gt;  &lt;path/to/save.csv&gt; --text-column &lt;my_column&gt;
-</code></pre></div>
-
-<h4 id="python">Python<a class="headerlink" href="#python" title="Permanent link">#</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">from</span> <span class="nn">lassoo</span> <span class="kn">import</span> <span class="n">run</span>
+<span class="kn">import</span> <span class="nn">lassoo</span>
+<span class="kn">import</span> <span class="nn">umap</span>
 
 <span class="c1"># Load some data.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">load_csv</span><span class="p">(</span><span class="s2">&quot;my_data.csv&quot;</span><span class="p">)</span>
 
-<span class="c1"># Run the Lassoo UI assuming the first column is the text column.</span>
-<span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;./out.csv&quot;</span><span class="p">,</span> <span class="n">text_column</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># Embed your data somehow.</span>
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">get_embeddings</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span><span class="n">min_dist</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="c1"># Run the Lassoo UI.</span>
+<span class="n">run</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="s2">&quot;./out.csv&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>This will start a Lassoo server running on <code>localhost:8000</code>. Paste this into your web browser (chrome/firefox/safari etc) to start exploring!</p>
